@@ -10,26 +10,14 @@ function FormSearchByNickname(): JSX.Element {
   const [nickname, setNickname] = useState("");
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUserInfo);
-  const [loading, setLoading] = useState(false);
 
   const submitSearchByNicknameHandle = (evt: FormEvent) => {
     evt.preventDefault();
 
     if (nickname) {
       dispatch(getUserInfoAction(nickname));
-      setLoading(true);
     }
   };
-
-  useEffect(() => {
-    if (user) {
-      setLoading(false);
-    }
-  }, [user]);
-
-  if (loading && !user) {
-    return <Spinner />;
-  }
 
   if (user) {
     return <Navigate to={`${RouteList.Profile}/${user.login}`} />;

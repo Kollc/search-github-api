@@ -2,19 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 import { NameSpace } from "../../consts/consts";
 import { RepoProcessType } from "../../types/types";
 
-const initialState: RepoProcessType = {};
+const initialState: RepoProcessType = {
+  currentRepo: null,
+  commits: [],
+};
 
-export const userProcess = createSlice({
+export const repoProcess = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {
     setCurrentRepo: (state, action) => {
-      // state.user = action.payload;
+      state.currentRepo = action.payload;
     },
     setCurrentRepoCommits: (state, action) => {
-      // state.user = action.payload;
+      state.commits = action.payload;
     },
   },
 });
 
-export const { setCurrentRepo, setCurrentRepoCommits } = userProcess.actions;
+export const { setCurrentRepo, setCurrentRepoCommits } = repoProcess.actions;

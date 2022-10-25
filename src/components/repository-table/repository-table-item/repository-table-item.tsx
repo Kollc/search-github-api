@@ -1,19 +1,23 @@
 import { Link } from "react-router-dom";
 import { RouteList } from "../../../consts/routes";
-import { RepoType } from "../../../types/types";
+import { RepoType, UserType } from "../../../types/types";
 
 type RepositoryTableItemProps = {
   repo: RepoType;
+  user: UserType | null;
 };
 
-function RepositoryTableItem({ repo }: RepositoryTableItemProps): JSX.Element {
+function RepositoryTableItem({
+  repo,
+  user,
+}: RepositoryTableItemProps): JSX.Element {
   return (
     <tr>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <div className="flex items-center">
           <div className="ml-3">
             <Link
-              to={`${RouteList.Repository}/${repo.name}`}
+              to={`${RouteList.Repository}/${user?.login}/${repo.name}`}
               className="text-gray-900 whitespace-no-wrap"
             >
               {repo.name}

@@ -11,7 +11,7 @@ function App(): JSX.Element {
       <Route path={RouteList.Main} element={<MainPage />} />
       <Route path={`${RouteList.Profile}/:login`} element={<ProfilePage />} />
       <Route
-        path={`${RouteList.Repository}/:repoName`}
+        path={`${RouteList.Repository}/:login/:repoName`}
         element={<RepositoryPage />}
       />
       <Route path="*" element={<ErrorPage />} />

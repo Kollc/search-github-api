@@ -1,9 +1,9 @@
-import { RepoType, UserType } from "./../../types/types";
+import { CommitType, RepoType } from "./../../types/types";
 import { NameSpace } from "../../consts/consts";
 import { State } from "../../types/types";
 
-export const getRepoInfo = (state: State): UserType | null =>
-  state[NameSpace.User].user;
+export const getCurrentRepo = (state: State): RepoType | null =>
+  state[NameSpace.Repo].currentRepo;
 
-  export const getCommitList = (state: State): RepoType[] =>
-  state[NameSpace.User].repoList;
+export const getCommitList = (state: State): CommitType[] =>
+  state[NameSpace.Repo].commits;

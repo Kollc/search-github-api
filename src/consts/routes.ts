@@ -1,5 +1,5 @@
 export enum RouteList {
   Main = "/",
-  Profile = "/profile/:login",
-  Repository = "/repository/:repo",
+  Profile = "/profile",
+  Repository = "/repository",
 }

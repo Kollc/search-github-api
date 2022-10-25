@@ -9,8 +9,11 @@ function App(): JSX.Element {
   return (
     <Routes>
       <Route path={RouteList.Main} element={<MainPage />} />
-      <Route path={RouteList.Profile} element={<ProfilePage />} />
-      <Route path={RouteList.Repository} element={<RepositoryPage />} />
+      <Route path={`${RouteList.Profile}/:login`} element={<ProfilePage />} />
+      <Route
+        path={`${RouteList.Repository}/:repoName`}
+        element={<RepositoryPage />}
+      />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

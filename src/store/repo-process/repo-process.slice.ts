@@ -5,6 +5,7 @@ import { RepoProcessType } from "../../types/types";
 const initialState: RepoProcessType = {
   currentRepo: null,
   commits: [],
+  loading: false,
 };
 
 export const repoProcess = createSlice({
@@ -17,7 +18,10 @@ export const repoProcess = createSlice({
     setCurrentRepoCommits: (state, action) => {
       state.commits = action.payload;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
-export const { setCurrentRepo, setCurrentRepoCommits } = repoProcess.actions;
+export const { setCurrentRepo, setCurrentRepoCommits, setLoading } = repoProcess.actions;

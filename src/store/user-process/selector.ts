@@ -7,3 +7,6 @@ export const getUserInfo = (state: State): UserType | null =>
 
   export const getRepoList = (state: State): RepoType[] =>
   state[NameSpace.User].repoList;
+
+  export const getUserInfoLoadingStatus = (state: State): boolean =>
+  state[NameSpace.User].loading;

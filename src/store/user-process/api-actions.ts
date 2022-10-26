@@ -1,7 +1,7 @@
 import { AppDispatch, RepoType, State } from "./../../types/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Octokit } from "octokit";
-import { setRepoList, setUserInfo } from "./user-process.slice";
+import { setLoading, setRepoList, setUserInfo } from "./user-process.slice";
 
 export const getUserInfoAction = createAsyncThunk<
   void,
@@ -12,6 +12,7 @@ export const getUserInfoAction = createAsyncThunk<
     extra: Octokit;
   }
 >("user/getUserInfo", async (nickname, { dispatch, extra: octokit }) => {
+  dispatch(setLoading(true));
   try {
     const { data } = await octokit.request(`GET /users/{nickname}`, {
       nickname: nickname,
@@ -25,8 +26,11 @@ export const getUserInfoAction = createAsyncThunk<
           avatar: data.avatar_url,
         })
       );
+      dispatch(setLoading(false));
     }
-  } catch (error) {}
+  } catch (error) {
+    dispatch(setLoading(false));
+  }
 });
 
 export const getRepositoriesListByNicknameAction = createAsyncThunk<
@@ -40,6 +44,7 @@ export const getRepositoriesListByNicknameAction = createAsyncThunk<
 >(
   "user/getRepositoriesListByNickname",
   async (login, { dispatch, extra: octokit }) => {
+    dispatch(setLoading(true));
     try {
       const { data } = await octokit.request("GET /users/{login}/repos", {
         login: login,
@@ -47,8 +52,10 @@ export const getRepositoriesListByNicknameAction = createAsyncThunk<
 
       if (data) {
         dispatch(setRepoList(data));
+        dispatch(setLoading(false));
       }
-    } catch (error) {}
+    } catch (error) {
+      dispatch(setLoading(false));
+    }
   }
 );
-

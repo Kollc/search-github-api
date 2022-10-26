@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { RouteList } from "../../../consts/routes";
 import { RepoType, UserType } from "../../../types/types";
+import CountStarsView from "../../count-stars-view/count-stars-view";
 
 type RepositoryTableItemProps = {
   repo: RepoType;
@@ -11,33 +12,35 @@ function RepositoryTableItem({
   repo,
   user,
 }: RepositoryTableItemProps): JSX.Element {
+  const navigate = useNavigate();
+
+  const clickTableLineHandle = () => {
+    navigate(`${RouteList.Repository}/${user?.login}/${repo.name}`);
+  };
+
   return (
-    <tr>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+    <tr
+      className="cursor-pointer border-b border-gray-200 hover:border-green-800"
+      onClick={clickTableLineHandle}
+    >
+      <td className="px-5 py-5 bg-white text-sm">
         <div className="flex items-center">
           <div className="ml-3">
-            <Link
-              to={`${RouteList.Repository}/${user?.login}/${repo.name}`}
-              className="text-gray-900 whitespace-no-wrap"
-            >
+            <span className="text-gray-900 whitespace-no-wrap">
               {repo.name}
-            </Link>
+            </span>
           </div>
         </div>
       </td>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+      <td className="px-5 py-5  bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">{repo.language}</p>
       </td>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+      <td className="px-5 py-5 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">{repo.description}</p>
       </td>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+      <td className="px-5 py-5 bg-white text-sm">
         <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-          ></span>
-          <span className="relative">{repo.stargazers_count}</span>
+          <CountStarsView countStars={repo.stargazers_count} />
         </span>
       </td>
     </tr>

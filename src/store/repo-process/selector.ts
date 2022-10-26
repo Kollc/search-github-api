@@ -7,3 +7,6 @@ export const getCurrentRepo = (state: State): RepoType | null =>
 
 export const getCommitList = (state: State): CommitType[] =>
   state[NameSpace.Repo].commits;
+
+  export const getRepoInfoLoadingStatus = (state: State): boolean =>
+  state[NameSpace.Repo].loading;

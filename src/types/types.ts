@@ -6,6 +6,7 @@ export type AppDispatch = typeof store.dispatch;
 export type UserProcessType = {
   user: UserType | null;
   repoList: RepoType[];
+  loading: false;
 };
 
 export type RepoType = {
@@ -126,6 +127,7 @@ export type UserType = {
 export type RepoProcessType = {
   currentRepo: RepoType | null;
   commits: CommitType[];
+  loading: boolean;
 };
 
 export type CommitUser = {

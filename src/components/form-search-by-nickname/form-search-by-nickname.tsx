@@ -1,25 +1,40 @@
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { RouteList } from "../../consts/routes";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { getUserInfoAction } from "../../store/user-process/api-actions";
-import { getUserInfo } from "../../store/user-process/selector";
+import {
+  getUserInfo,
+  getUserInfoLoadingStatus,
+} from "../../store/user-process/selector";
 import Spinner from "../spinner/spinner";
 
 function FormSearchByNickname(): JSX.Element {
   const [nickname, setNickname] = useState("");
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUserInfo);
+  const loading = useAppSelector(getUserInfoLoadingStatus);
+  const [isFetch, setIsFetch] = useState(false);
 
   const submitSearchByNicknameHandle = (evt: FormEvent) => {
     evt.preventDefault();
 
     if (nickname) {
       dispatch(getUserInfoAction(nickname));
+      setIsFetch(true);
     }
   };
 
-  if (user) {
+  const changeLoginUserHadle = (evt: ChangeEvent<HTMLInputElement>) => {
+    setNickname(evt.target.value);
+    setIsFetch(false);
+  };
+
+  if (loading && !user) {
+    <Spinner />;
+  }
+
+  if (user && !loading) {
     return <Navigate to={`${RouteList.Profile}/${user.login}`} />;
   }
 
@@ -55,17 +70,27 @@ function FormSearchByNickname(): JSX.Element {
           type="search"
           id="default-search"
           value={nickname}
-          className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Enter a github nickname..."
+          className={`block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border 
+          border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
+          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
+            !user && isFetch && !loading && "ring-red-500 ring-2"
+          }`}
+          placeholder="Введите логин с github..."
           required
-          onChange={(evt) => setNickname(evt.target.value)}
+          onChange={changeLoginUserHadle}
         />
+        {!user && isFetch && !loading && (
+          <p className="absolute text-sm text-red-500 -bottom-6">
+            Пользователь с таким логином не был найден!
+          </p>
+        )}
       </div>
       <button
         type="submit"
-        className="w-3/12 mx-auto rounded-2xl block bg-white hover:bg-gray-900 py-3 px-4 text-lg  hover:text-white font-bold uppercase mt-10"
+        className="w-3/12 mx-auto rounded-2xl block border-2 border-white bg-white hover:bg-transparent hover:border-2 hover:text-white hover:border-white py-3 px-4 text-lg  
+        hover:text-white font-bold uppercase mt-10"
       >
-        Search Now
+        Найти
       </button>
     </form>
   );

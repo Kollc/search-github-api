@@ -5,7 +5,10 @@ import {
   setCurrentRepo,
   setCurrentRepoCommits,
 } from "../../store/repo-process/repo-process.slice";
-import { getCurrentRepo } from "../../store/repo-process/selector";
+import {
+  getCurrentRepo,
+  getRepoInfoLoadingStatus,
+} from "../../store/repo-process/selector";
 import Spinner from "../spinner/spinner";
 
 type RepoInfoProps = {
@@ -16,6 +19,7 @@ function RepoInfo({ userLogin }: RepoInfoProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const currentRepo = useAppSelector(getCurrentRepo);
+  const loading = useAppSelector(getRepoInfoLoadingStatus);
 
   const clickButtonBackHandle = () => {
     dispatch(setCurrentRepo(null));
@@ -23,7 +27,7 @@ function RepoInfo({ userLogin }: RepoInfoProps): JSX.Element {
     navigate(`${RouteList.Profile}/${userLogin}`);
   };
 
-  if (!currentRepo) {
+  if (!currentRepo || loading) {
     return <Spinner />;
   }
 
@@ -41,7 +45,8 @@ function RepoInfo({ userLogin }: RepoInfoProps): JSX.Element {
       </div>
       <button
         onClick={clickButtonBackHandle}
-        className="border-solid border-black border-2 self-start w-1/12 rounded-2xl block bg-white hover:bg-gray-900 py-3 px-4 text-lg  hover:text-white font-bold uppercase"
+        className="border-solid border-black border-2 self-start w-1/12 rounded-2xl block bg-whitehover:border-2 
+        hover:text-green-700 hover:border-green-700 py-3 px-4 text-lg font-bold uppercase"
       >
         Назад
       </button>

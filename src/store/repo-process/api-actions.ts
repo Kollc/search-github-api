@@ -1,7 +1,11 @@
 import { AppDispatch, State } from "./../../types/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Octokit } from "octokit";
-import { setCurrentRepo, setCurrentRepoCommits } from "./repo-process.slice";
+import {
+  setCurrentRepo,
+  setCurrentRepoCommits,
+  setLoading,
+} from "./repo-process.slice";
 
 export const getRepositoryInfoAction = createAsyncThunk<
   void,
@@ -14,6 +18,7 @@ export const getRepositoryInfoAction = createAsyncThunk<
 >(
   "repo/getRepositoryInfo",
   async ({ nickname, repoName }, { dispatch, extra: octokit }) => {
+    dispatch(setLoading(true));
     try {
       const { data } = await octokit.request("GET /repos/{owner}/{repo}", {
         owner: nickname,
@@ -22,8 +27,11 @@ export const getRepositoryInfoAction = createAsyncThunk<
 
       if (data) {
         dispatch(setCurrentRepo(data));
+        dispatch(setLoading(false));
       }
-    } catch (error) {}
+    } catch (error) {
+      dispatch(setLoading(false));
+    }
   }
 );
 
@@ -38,17 +46,22 @@ export const getRepositoryCommitsAction = createAsyncThunk<
 >(
   "repo/getRepositoryCommits",
   async ({ nickname, repoName }, { dispatch, extra: octokit }) => {
+    dispatch(setLoading(true));
     try {
-      const { data } = await octokit.request("GET /repos/{owner}/{repo}/commits", {
-        owner: nickname,
-        repo: repoName,
-      });
-
-      console.log(data);
+      const { data } = await octokit.request(
+        "GET /repos/{owner}/{repo}/commits",
+        {
+          owner: nickname,
+          repo: repoName,
+        }
+      );
 
       if (data) {
         dispatch(setCurrentRepoCommits(data));
+        dispatch(setLoading(false));
       }
-    } catch (error) {}
+    } catch (error) {
+      dispatch(setLoading(false));
+    }
   }
 );

@@ -9,10 +9,12 @@ import { useParams } from "react-router-dom";
 import CommitsTable from "../../commits-table/commits-table";
 import RepoInfo from "../../repo-info/repo-info";
 import Spinner from "../../spinner/spinner";
+import { getRepoInfoLoadingStatus } from "../../../store/repo-process/selector";
 
-function RepositoryPage(): JSX.Element {
+function CommitsPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { repoName, login } = useParams();
+  const loading = useAppSelector(getRepoInfoLoadingStatus);
 
   useEffect(() => {
     if (login && repoName) {
@@ -21,12 +23,12 @@ function RepositoryPage(): JSX.Element {
     }
   }, [login, repoName]);
 
-  if (!login || !repoName) {
+  if (loading || !login) {
     return <Spinner />;
   }
 
   return (
-    <main className="px-4 bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative">
+    <main className="px-4 bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative bg-gradient-to-b to-green-800 from-yellow-500">
       <div className="mt-4 flex items-start justify-between">
         <div className="flex flex-col w-full md:space-y-4">
           <div className="overflow-auto h-screen pb-24 px-4 md:px-6">
@@ -47,4 +49,4 @@ function RepositoryPage(): JSX.Element {
   );
 }
 
-export default RepositoryPage;
+export default CommitsPage;

@@ -42,7 +42,8 @@ function UserInfo({ user }: UserInfoProps): JSX.Element {
       </div>
       <button
         onClick={clickButtonBackHandle}
-        className="border-solid border-black border-2 self-start w-1/12 rounded-2xl block bg-white hover:bg-gray-900 py-3 px-4 text-lg  hover:text-white font-bold uppercase"
+        className="border-solid border-black border-2 self-start w-1/12 rounded-2xl block bg-whitehover:border-2 
+        hover:text-green-700 hover:border-green-700 py-3 px-4 text-lg font-bold uppercase"
       >
         Назад
       </button>

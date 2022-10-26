@@ -6,7 +6,10 @@ import {
   getRepositoriesListByNicknameAction,
   getUserInfoAction,
 } from "../../../store/user-process/api-actions";
-import { getUserInfo } from "../../../store/user-process/selector";
+import {
+  getUserInfo,
+  getUserInfoLoadingStatus,
+} from "../../../store/user-process/selector";
 import RepositoryTable from "../../repository-table/repository-table";
 import Spinner from "../../spinner/spinner";
 import UserInfo from "../../user-info/user-info";
@@ -15,6 +18,7 @@ function ProfilePage(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUserInfo);
   const { login } = useParams();
+  const loading = useAppSelector(getUserInfoLoadingStatus);
 
   useEffect(() => {
     if (login) {
@@ -23,7 +27,7 @@ function ProfilePage(): JSX.Element {
     }
   }, [login]);
 
-  if (!user && !login) {
+  if (loading || !login) {
     return <Spinner />;
   }
 
@@ -32,7 +36,7 @@ function ProfilePage(): JSX.Element {
   }
 
   return (
-    <main className="px-4 bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative bg-gradient-to-t from-red-400 via-red-900 to-pink-500">
+    <main className="px-4 bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative bg-gradient-to-b to-green-800 from-yellow-500">
       <div className="mt-4 flex items-start justify-between">
         <div className="flex flex-col w-full md:space-y-4">
           <div className="overflow-auto h-screen pb-24 px-4 md:px-6">

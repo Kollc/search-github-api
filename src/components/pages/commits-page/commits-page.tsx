@@ -1,27 +1,26 @@
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { useEffect } from "react";
-import { getUserInfo } from "../../../store/user-process/selector";
 import {
   getRepositoryCommitsAction,
   getRepositoryInfoAction,
-} from "../../../store/repo-process/api-actions";
+} from "../../../store/repository-process/api-actions";
 import { useParams } from "react-router-dom";
 import CommitsTable from "../../commits-table/commits-table";
-import RepoInfo from "../../repo-info/repo-info";
+import RepositoryInfo from "../../repository-info/repository-info";
 import Spinner from "../../spinner/spinner";
-import { getRepoInfoLoadingStatus } from "../../../store/repo-process/selector";
+import { getRepoInfoLoadingStatus } from "../../../store/repository-process/selector";
 
 function CommitsPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const { repoName, login } = useParams();
+  const { repositoryName, login } = useParams();
   const loading = useAppSelector(getRepoInfoLoadingStatus);
 
   useEffect(() => {
-    if (login && repoName) {
-      dispatch(getRepositoryInfoAction({ repoName, nickname: login }));
-      dispatch(getRepositoryCommitsAction({ repoName, nickname: login }));
+    if (login && repositoryName) {
+      dispatch(getRepositoryInfoAction({ repositoryName, login }));
+      dispatch(getRepositoryCommitsAction({ repositoryName, login }));
     }
-  }, [login, repoName]);
+  }, [login, repositoryName]);
 
   if (loading || !login) {
     return <Spinner />;
@@ -32,7 +31,7 @@ function CommitsPage(): JSX.Element {
       <div className="mt-4 flex items-start justify-between">
         <div className="flex flex-col w-full md:space-y-4">
           <div className="overflow-auto h-screen pb-24 px-4 md:px-6">
-            <RepoInfo userLogin={login} />
+            <RepositoryInfo userLogin={login} />
             <div className="w-full">
               <div className="py-8">
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">

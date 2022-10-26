@@ -1,15 +1,25 @@
 import { useAppSelector } from "../../../hooks/hooks";
-import { getRepoList, getUserInfo } from "../../../store/user-process/selector";
+import { getUserInfo } from "../../../store/user-process/selector";
+import { RepositoryType } from "../../../types/types";
 import RepositoryTableItem from "../repository-table-item/repository-table-item";
 
-function RepositoryTableList(): JSX.Element {
-  const repoList = useAppSelector(getRepoList);
+type RepositoryTableListProps = {
+  repositoryList: RepositoryType[];
+};
+
+function RepositoryTableList({
+  repositoryList,
+}: RepositoryTableListProps): JSX.Element {
   const user = useAppSelector(getUserInfo);
 
   return (
     <tbody>
-      {repoList.map((repo) => (
-        <RepositoryTableItem key={repo.id} repo={repo} user={user} />
+      {repositoryList.map((repository) => (
+        <RepositoryTableItem
+          key={repository.id}
+          repository={repository}
+          user={user}
+        />
       ))}
     </tbody>
   );

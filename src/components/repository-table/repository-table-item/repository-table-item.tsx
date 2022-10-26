@@ -1,21 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { RouteList } from "../../../consts/routes";
-import { RepoType, UserType } from "../../../types/types";
+import { RepositoryType, UserType } from "../../../types/types";
 import CountStarsView from "../../count-stars-view/count-stars-view";
 
 type RepositoryTableItemProps = {
-  repo: RepoType;
+  repository: RepositoryType;
   user: UserType | null;
 };
 
 function RepositoryTableItem({
-  repo,
+  repository,
   user,
 }: RepositoryTableItemProps): JSX.Element {
   const navigate = useNavigate();
 
   const clickTableLineHandle = () => {
-    navigate(`${RouteList.Repository}/${user?.login}/${repo.name}`);
+    navigate(`${RouteList.Repository}/${user?.login}/${repository.name}`);
   };
 
   return (
@@ -27,20 +27,20 @@ function RepositoryTableItem({
         <div className="flex items-center">
           <div className="ml-3">
             <span className="text-gray-900 whitespace-no-wrap">
-              {repo.name}
+              {repository.name}
             </span>
           </div>
         </div>
       </td>
       <td className="px-5 py-5  bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{repo.language}</p>
+        <p className="text-gray-900 whitespace-no-wrap">{repository.language}</p>
       </td>
       <td className="px-5 py-5 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{repo.description}</p>
+        <p className="text-gray-900 whitespace-no-wrap">{repository.description}</p>
       </td>
       <td className="px-5 py-5 bg-white text-sm">
         <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-          <CountStarsView countStars={repo.stargazers_count} />
+          <CountStarsView countStars={repository.stargazers_count} />
         </span>
       </td>
     </tr>

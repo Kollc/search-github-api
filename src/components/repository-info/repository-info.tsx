@@ -4,18 +4,18 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {
   setCurrentRepo,
   setCurrentRepoCommits,
-} from "../../store/repo-process/repo-process.slice";
+} from "../../store/repository-process/repository-process.slice";
 import {
   getCurrentRepo,
   getRepoInfoLoadingStatus,
-} from "../../store/repo-process/selector";
+} from "../../store/repository-process/selector";
 import Spinner from "../spinner/spinner";
 
 type RepoInfoProps = {
   userLogin: string;
 };
 
-function RepoInfo({ userLogin }: RepoInfoProps): JSX.Element {
+function RepositoryInfo({ userLogin }: RepoInfoProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const currentRepo = useAppSelector(getCurrentRepo);
@@ -54,4 +54,4 @@ function RepoInfo({ userLogin }: RepoInfoProps): JSX.Element {
   );
 }
 
-export default RepoInfo;
+export default RepositoryInfo;

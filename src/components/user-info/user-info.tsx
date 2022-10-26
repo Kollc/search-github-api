@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { RouteList } from "../../consts/routes";
 import { useAppDispatch } from "../../hooks/hooks";
 import {
-  setRepoList,
+  setRepositoryList,
   setUserInfo,
 } from "../../store/user-process/user-process.slice";
 import { UserType } from "../../types/types";
@@ -17,7 +17,7 @@ function UserInfo({ user }: UserInfoProps): JSX.Element {
 
   const clickButtonBackHandle = () => {
     dispatch(setUserInfo(null));
-    dispatch(setRepoList([]));
+    dispatch(setRepositoryList([]));
     navigate(RouteList.Main);
   };
 

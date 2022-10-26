@@ -4,7 +4,7 @@ import { NameSpace } from "../../consts/consts";
 
 const initialState: UserProcessType = {
   user: null,
-  repoList: [],
+  repositoryList: [],
   loading: false,
 };
 
@@ -15,8 +15,8 @@ export const userProcess = createSlice({
     setUserInfo: (state, action) => {
       state.user = action.payload;
     },
-    setRepoList: (state, action) => {
-      state.repoList = action.payload;
+    setRepositoryList: (state, action) => {
+      state.repositoryList = action.payload;
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
@@ -24,4 +24,4 @@ export const userProcess = createSlice({
   },
 });
 
-export const { setUserInfo, setRepoList, setLoading } = userProcess.actions;
+export const { setUserInfo, setRepositoryList, setLoading } = userProcess.actions;

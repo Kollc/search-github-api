@@ -10,16 +10,16 @@ function ErrorPage(): JSX.Element {
       <div className="container mx-auto px-6 md:px-12 relative z-10 flex items-center py-32 xl:py-40">
         <div className="w-full font-mono flex flex-col items-center relative z-10">
           <h1 className="font-extrabold text-5xl text-center text-white leading-tight mt-4">
-            You&#x27;re alone here
+            Вы потерялись!
           </h1>
           <p className="font-extrabold text-8xl my-44 text-white animate-bounce">
-            404
+            404 Not Found
           </p>
           <Link
             to={RouteList.Main}
             className="font-extrabold text-5xl text-center text-white leading-tight mt-4"
           >
-            Get back!
+            Вернуться на главную!
           </Link>
         </div>
       </div>

@@ -8,7 +8,7 @@ const initialState: RepoProcessType = {
   loading: false,
 };
 
-export const repoProcess = createSlice({
+export const repositoryProcess = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {
@@ -24,4 +24,4 @@ export const repoProcess = createSlice({
   },
 });
 
-export const { setCurrentRepo, setCurrentRepoCommits, setLoading } = repoProcess.actions;
+export const { setCurrentRepo, setCurrentRepoCommits, setLoading } = repositoryProcess.actions;

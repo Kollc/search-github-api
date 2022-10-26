@@ -3,7 +3,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { RouteList } from "../../../consts/routes";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import {
-  getRepositoriesListByNicknameAction,
+  getRepositoriesListByLoginAction,
   getUserInfoAction,
 } from "../../../store/user-process/api-actions";
 import {
@@ -23,7 +23,7 @@ function ProfilePage(): JSX.Element {
   useEffect(() => {
     if (login) {
       dispatch(getUserInfoAction(login));
-      dispatch(getRepositoriesListByNicknameAction(login));
+      dispatch(getRepositoriesListByLoginAction(login));
     }
   }, [login]);
 

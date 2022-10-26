@@ -5,11 +5,11 @@ export type AppDispatch = typeof store.dispatch;
 
 export type UserProcessType = {
   user: UserType | null;
-  repoList: RepoType[];
+  repositoryList: RepositoryType[];
   loading: false;
 };
 
-export type RepoType = {
+export type RepositoryType = {
   allow_forking: boolean;
   archive_url: string;
   archived: boolean;
@@ -97,7 +97,7 @@ export type RepoType = {
   web_commit_signoff_required: boolean;
 };
 
-export type OwnerType = {
+export interface OwnerType {
   avatar_url: string;
   events_url: string;
   followers_url: string;
@@ -116,7 +116,7 @@ export type OwnerType = {
   subscriptions_url: string;
   type: string;
   url: string;
-};
+}
 
 export type UserType = {
   login: string;
@@ -125,32 +125,14 @@ export type UserType = {
 };
 
 export type RepoProcessType = {
-  currentRepo: RepoType | null;
+  currentRepo: RepositoryType | null;
   commits: CommitType[];
   loading: boolean;
 };
 
-export type CommitUser = {
-  avatar_url: string;
-  events_url: string;
-  followers_url: string;
-  following_url: string;
-  gists_url: string;
-  gravatar_id: string;
-  html_url: string;
-  id: number;
-  login: string;
-  node_id: string;
-  organizations_url: string;
-  received_events_url: string;
-  repos_url: string;
-  site_admin: boolean;
-  starred_url: string;
-  subscriptions_url: string;
-  type: string;
-  url: string;
+export interface CommitUser extends OwnerType {
   comments_url: string;
-};
+}
 
 export type CommitType = {
   author: CommitUser;

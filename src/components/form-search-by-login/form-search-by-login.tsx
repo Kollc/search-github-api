@@ -9,24 +9,24 @@ import {
 } from "../../store/user-process/selector";
 import Spinner from "../spinner/spinner";
 
-function FormSearchByNickname(): JSX.Element {
-  const [nickname, setNickname] = useState("");
+function FormSearchByLogin(): JSX.Element {
+  const [login, setLogin] = useState("");
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUserInfo);
   const loading = useAppSelector(getUserInfoLoadingStatus);
   const [isFetch, setIsFetch] = useState(false);
 
-  const submitSearchByNicknameHandle = (evt: FormEvent) => {
+  const submitSearchByLoginHandle = (evt: FormEvent) => {
     evt.preventDefault();
 
-    if (nickname) {
-      dispatch(getUserInfoAction(nickname));
+    if (login) {
+      dispatch(getUserInfoAction(login));
       setIsFetch(true);
     }
   };
 
   const changeLoginUserHadle = (evt: ChangeEvent<HTMLInputElement>) => {
-    setNickname(evt.target.value);
+    setLogin(evt.target.value);
     setIsFetch(false);
   };
 
@@ -41,7 +41,7 @@ function FormSearchByNickname(): JSX.Element {
   return (
     <form
       className="w-7/12 flex flex-col"
-      onSubmit={submitSearchByNicknameHandle}
+      onSubmit={submitSearchByLoginHandle}
     >
       <label
         htmlFor="default-search"
@@ -69,7 +69,7 @@ function FormSearchByNickname(): JSX.Element {
         <input
           type="search"
           id="default-search"
-          value={nickname}
+          value={login}
           className={`block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border 
           border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
           dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
@@ -96,4 +96,4 @@ function FormSearchByNickname(): JSX.Element {
   );
 }
 
-export default FormSearchByNickname;
+export default FormSearchByLogin;

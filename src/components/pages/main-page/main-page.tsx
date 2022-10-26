@@ -1,4 +1,4 @@
-import FormSearchByNickname from "../../form-search-by-nickname/form-search-by-nickname";
+import FormSearchByLogin from "../../form-search-by-login/form-search-by-login";
 import background from "./images/background.svg";
 
 function MainPage(): JSX.Element {
@@ -8,7 +8,7 @@ function MainPage(): JSX.Element {
       <div className="inset-0 bg-black opacity-25 absolute"></div>
       <div className="container mx-auto px-6 md:px-12 relative z-10 flex items-center py-32 xl:py-40">
         <div className="w-full flex flex-col items-center relative z-10">
-          <FormSearchByNickname />
+          <FormSearchByLogin />
         </div>
       </div>
     </div>

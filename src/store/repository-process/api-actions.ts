@@ -1,15 +1,15 @@
-import { AppDispatch, State } from "./../../types/types";
+import { AppDispatch, State } from "../../types/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Octokit } from "octokit";
 import {
   setCurrentRepo,
   setCurrentRepoCommits,
   setLoading,
-} from "./repo-process.slice";
+} from "./repository-process.slice";
 
 export const getRepositoryInfoAction = createAsyncThunk<
   void,
-  { nickname: string; repoName: string },
+  { login: string; repositoryName: string },
   {
     dispatch: AppDispatch;
     state: State;
@@ -17,12 +17,12 @@ export const getRepositoryInfoAction = createAsyncThunk<
   }
 >(
   "repo/getRepositoryInfo",
-  async ({ nickname, repoName }, { dispatch, extra: octokit }) => {
+  async ({ login, repositoryName }, { dispatch, extra: octokit }) => {
     dispatch(setLoading(true));
     try {
-      const { data } = await octokit.request("GET /repos/{owner}/{repo}", {
-        owner: nickname,
-        repo: repoName,
+      const { data } = await octokit.request("GET /repos/{owner}/{repositoryName}", {
+        owner: login,
+        repositoryName: repositoryName,
       });
 
       if (data) {
@@ -37,7 +37,7 @@ export const getRepositoryInfoAction = createAsyncThunk<
 
 export const getRepositoryCommitsAction = createAsyncThunk<
   void,
-  { nickname: string; repoName: string },
+  { login: string; repositoryName: string },
   {
     dispatch: AppDispatch;
     state: State;
@@ -45,14 +45,14 @@ export const getRepositoryCommitsAction = createAsyncThunk<
   }
 >(
   "repo/getRepositoryCommits",
-  async ({ nickname, repoName }, { dispatch, extra: octokit }) => {
+  async ({ login, repositoryName }, { dispatch, extra: octokit }) => {
     dispatch(setLoading(true));
     try {
       const { data } = await octokit.request(
-        "GET /repos/{owner}/{repo}/commits",
+        "GET /repos/{owner}/{repositoryName}/commits",
         {
-          owner: nickname,
-          repo: repoName,
+          owner: login,
+          repositoryName: repositoryName,
         }
       );
 

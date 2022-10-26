@@ -14,13 +14,13 @@
 
 ## О проекте
 
-Этот проект является интерфесом для отображения данных пользователя github по его логину:
+Этот проект является интерфейсом для отображения данных пользователя github по его логину:
 
 - Репозитории
 - Коммиты к этим репозиториям
 - Личные данные (имя, логин, аватар)
 
-Для взаимодействия с API испаользуется [https://github.com/octokit/octokit.js](https://github.com/octokit/octokit.js)
+Для взаимодействия с API используется [https://github.com/octokit/octokit.js](https://github.com/octokit/octokit.js)
 
 ## Технологии и библиотеки
 
@@ -33,3 +33,5 @@
 - octokit
 - redux-thunk
 - tailwindcss
+
+
